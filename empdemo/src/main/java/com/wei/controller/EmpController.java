@@ -31,4 +31,14 @@ public class EmpController {
 
         return "emplist";
     }
+
+    @RequestMapping(value = {"/deleteEmpById"})
+    public String deleteEmpById(int[] id){
+//        传过来的数组 spring自己会截开（把逗号去掉）
+//只能叫id  不是一个别名，闹不清
+            empService.deleteEmpById(id);
+
+        return "redirect:/emplist";
+    }
+
 }

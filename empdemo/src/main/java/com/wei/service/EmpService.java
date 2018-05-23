@@ -12,4 +12,8 @@ public interface EmpService {
      * @return
      */
     List<Emp> listEmp();
+    /**
+     * 删除员工
+     */
+    int deleteEmpById(int[] ids);
 }

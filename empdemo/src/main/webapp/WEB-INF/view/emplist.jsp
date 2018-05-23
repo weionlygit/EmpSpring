@@ -16,7 +16,7 @@
         <table class="table table-striped table-hover">
             <thead>
             <tr>
-                <th><input type="checkbox"></th>
+                <th><input type="checkbox" id="chooseAll"></th>
                 <th>#</th>
                 <th>姓名</th>
                 <th>手机</th>
@@ -30,7 +30,7 @@
 
             <c:forEach items="${pageInfo.list}" var="emp" varStatus="index">
                 <tr>
-                    <td><input type="checkbox"></td>
+                    <td><input type="checkbox" class="item" value="${emp.id}"></td>
                     <td>${index.index+1}</td>
                     <td>${emp.name}</td>
                     <td>${emp.phone}</td>
@@ -39,7 +39,7 @@
                     <td>${emp.dept.dname}</td>
                     <td>
                         <button type="button" class="btn btn-info">修改</button>
-                        <button type="button" class="btn btn-danger">删除</button>
+                        <button type="button" class="btn btn-danger delete_id" value="${emp.id}">删除</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -50,7 +50,7 @@
     <div class="row">
         <div class="col-sm-9">
             <button type="button" class="btn btn-primary">增加</button>
-            <button type="button" class="btn btn-danger">删除</button>
+            <button type="button" class="btn btn-danger" id="deleteAll">删除</button>
         </div>
         <div class="col-sm-3">
             <nav aria-label="Page navigation">
@@ -119,5 +119,38 @@
 
 <script type="text/javascript" src="r/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="r/bootstrap/js/bootstrap.min.js"></script>
+
+<script type="text/javascript">
+    $(function () {
+        //全选与全不选
+        $("#chooseAll").click(function () {
+            if($("#chooseAll").prop("checked")==true){
+                $(".item").prop("checked",true);
+            }else{
+                $(".item").prop("checked",false);
+            }
+        });
+        //全部删除
+        $("#deleteAll").click(function(){
+            var ids=[];
+            $(".item").each(function () {
+                var item =$(this);
+                if(item.prop("checked")){
+                    var id=item.val();
+                    ids[ids.length]=id;
+                }
+                var path = "${pageContext.request.contextPath}/deleteEmpById?id="+ids;
+                location.href=path;
+                // $(".delete_id").val()
+            });
+        });
+    //    单个删除
+        $(".delete_id").click(function(){
+            var curId =$(this);
+            var path = "${pageContext.request.contextPath}/deleteEmpById?id="+curId.val();
+            location.href=path;
+        })
+    });
+</script>
 </body>
 </html>
