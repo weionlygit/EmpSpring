@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface EmpMapper {
     List<Emp> listEmp();
+    int deleteEmpById(int[] ids);
 }

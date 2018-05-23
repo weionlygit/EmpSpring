@@ -19,4 +19,11 @@
     <select id="listEmp" resultMap="empMapper">
         SELECT e.id,name,phone,sex,salary,dept_id,dname,location from e_emp e inner join e_dept d on e.dept_id=d.id
     </select>
+
+    <delete id="deleteEmpById" parameterType="int">
+         DELETE from e_emp where id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+    </delete>
 </mapper>
