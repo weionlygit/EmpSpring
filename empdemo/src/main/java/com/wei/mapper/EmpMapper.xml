@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--映射-->
+<mapper namespace="com.wei.mapper.EmpMapper">
+    <resultMap id="empMapper" type="com.wei.entity.Emp">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="salary" column="salary"/>
+        <association property="dept" javaType="com.wei.entity.Dept">
+            <id property="id" column="dept_id"></id>
+            <result property="dname" column="dname"/>
+            <result property="location" column="location"/>
+        </association>
+    </resultMap>
+
+    <select id="listEmp" resultMap="empMapper">
+        SELECT e.id,name,phone,sex,salary,dept_id,dname,location from e_emp e inner join e_dept d on e.dept_id=d.id
+    </select>
+</mapper>
