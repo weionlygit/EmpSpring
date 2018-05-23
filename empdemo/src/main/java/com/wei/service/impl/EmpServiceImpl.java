@@ -11,6 +11,9 @@ import java.util.List;
 @Service
 public class EmpServiceImpl implements EmpService{
 
+    /**
+     * 查询
+     */
     @Autowired
     private EmpMapper empMapper;
 
@@ -18,4 +21,12 @@ public class EmpServiceImpl implements EmpService{
     public List<Emp> listEmp(){
         return empMapper.listEmp();
     }
+    /**
+     *删除员工
+     */
+    @Override
+    public int deleteEmpById(int[] ids) {
+        return empMapper.deleteEmpById(ids);
+    }
+
 }
