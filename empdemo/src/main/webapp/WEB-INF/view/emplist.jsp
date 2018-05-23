@@ -28,7 +28,7 @@
             </thead>
             <tbody>
 
-            <c:forEach items="${emplist}" var="emp" varStatus="index">
+            <c:forEach items="${pageInfo.list}" var="emp" varStatus="index">
                 <tr>
                     <td><input type="checkbox"></td>
                     <td>${index.index+1}</td>
@@ -44,7 +44,6 @@
                 </tr>
             </c:forEach>
 
-
             </tbody>
         </table>
     </div>
@@ -56,21 +55,61 @@
         <div class="col-sm-3">
             <nav aria-label="Page navigation">
                 <ul class="pagination">
-                    <li class="disabled">
-                        <a href="#" aria-label="Previous">
-                            <span aria-hidden="true">&laquo;</span>
-                        </a>
-                    </li>
-                    <li class="active"><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">5</a></li>
-                    <li>
-                        <a href="#" aria-label="Next">
-                            <span aria-hidden="true">&raquo;</span>
-                        </a>
-                    </li>
+
+                    <c:if test="${pageInfo.isFirstPage}">
+                        <li class="disabled">
+                            <a href="#" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+                    <c:if test="${!(pageInfo.isFirstPage)}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/emplist?pageNum=${pageInfo.prePage}" aria-label="Previous">
+                                <span aria-hidden="true">&laquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+
+                    <%--当前页不能超过分页总数--%>
+                    <c:if test="${pageInfo.pages-pageInfo.pageNum>4}" >
+                        <%--因为index记录的不是当前的pageNum--%>
+                        <c:forEach begin="${pageInfo.pageNum}" end="${pageInfo.pageNum+4}" var="num" varStatus="index">
+                            <c:if test="${index.index==pageInfo.pageNum}">
+                                <li class="active"><a href="${pageContext.request.contextPath}/emplist?pageNum=${index.index}">${num}</a></li>
+                            </c:if>
+                            <c:if test="${!(index.index==pageInfo.pageNum)}">
+                                <li ><a href="${pageContext.request.contextPath}/emplist?pageNum=${index.index}">${num}</a></li>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${!(pageInfo.pages-pageInfo.pageNum>4)}" >
+                        <%--因为index记录的不是当前的pageNum--%>
+                        <c:forEach begin="${pageInfo.pages-4}" end="${pageInfo.pages}" var="num" varStatus="index">
+                            <c:if test="${index.index==pageInfo.pageNum}">
+                                <li class="active"><a href="${pageContext.request.contextPath}/emplist?pageNum=${index.index}">${num}</a></li>
+                            </c:if>
+                            <c:if test="${!(index.index==pageInfo.pageNum)}">
+                                <li ><a href="${pageContext.request.contextPath}/emplist?pageNum=${index.index}">${num}</a></li>
+                            </c:if>
+                        </c:forEach>
+                    </c:if>
+
+
+                    <c:if test="${pageInfo.isLastPage}">
+                        <li class="disabled">
+                            <a href="#" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
+                    <c:if test="${!(pageInfo.isLastPage)}">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/emplist?pageNum=${pageInfo.nextPage}" aria-label="Next">
+                                <span aria-hidden="true">&raquo;</span>
+                            </a>
+                        </li>
+                    </c:if>
                 </ul>
             </nav>
         </div>
