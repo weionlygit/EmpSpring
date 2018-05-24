@@ -133,16 +133,22 @@
         //全部删除
         $("#deleteAll").click(function(){
             var ids=[];
-            $(".item").each(function () {
-                var item =$(this);
-                if(item.prop("checked")){
-                    var id=item.val();
-                    ids[ids.length]=id;
-                }
-                var path = "${pageContext.request.contextPath}/deleteEmpById?id="+ids;
-                location.href=path;
-                // $(".delete_id").val()
-            });
+
+            if($(":checked").length==0){
+                alert("请选择要删除的员工");
+            }else{
+
+                $(".item").each(function () {
+                    var item =$(this);
+                    if(item.prop("checked")){
+                        var id=item.val();
+                        ids[ids.length]=id;
+                    }
+                    var path = "${pageContext.request.contextPath}/deleteEmpById?id="+ids;
+                    location.href=path;
+                    // $(".delete_id").val()
+                });
+            }
         });
     //    单个删除
         $(".delete_id").click(function(){
