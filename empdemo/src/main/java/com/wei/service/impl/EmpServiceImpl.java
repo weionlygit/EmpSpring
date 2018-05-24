@@ -29,4 +29,13 @@ public class EmpServiceImpl implements EmpService{
         return empMapper.deleteEmpById(ids);
     }
 
+    @Override
+    public int saveEmp(Emp emp) {
+        return empMapper.saveEmp(emp);
+    }
+
+    /**
+     * 添加员工 存入数据库
+     */
+
 }

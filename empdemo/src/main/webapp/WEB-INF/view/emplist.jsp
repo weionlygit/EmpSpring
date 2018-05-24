@@ -49,7 +49,7 @@
     </div>
     <div class="row">
         <div class="col-sm-9">
-            <button type="button" class="btn btn-primary">增加</button>
+            <button type="button" class="btn btn-primary" id="addEmp">增加</button>
             <button type="button" class="btn btn-danger" id="deleteAll">删除</button>
         </div>
         <div class="col-sm-3">
@@ -155,7 +155,12 @@
             var curId =$(this);
             var path = "${pageContext.request.contextPath}/deleteEmpById?id="+curId.val();
             location.href=path;
-        })
+        });
+    //    添加员工
+        $("#addEmp").click(function () {
+            var path = "${pageContext.request.contextPath}/addEmp";
+            location.href=path;
+        });
     });
 </script>
 </body>

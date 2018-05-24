@@ -1,7 +1,6 @@
 package com.wei.service;
 
 import com.wei.entity.Emp;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -16,4 +15,8 @@ public interface EmpService {
      * 删除员工
      */
     int deleteEmpById(int[] ids);
+    /**
+     * 添加员工 存入数据库
+     */
+    int saveEmp(Emp emp);
 }

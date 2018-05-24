@@ -11,7 +11,7 @@
     <title>Title</title>
 </head>
 <body>
-<h1 style="margin:50px auto;display: block;width: 400px">欢迎登陆小白员工管理系统</h1>
+<h1 style="margin:50px auto;display: block;width: 400px">欢迎登陆员工管理系统</h1>
 <a href="emplist">查看</a>
 </body>
 </html>
