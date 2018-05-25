@@ -7,6 +7,7 @@
     <resultMap id="empMapper" type="com.wei.entity.Emp">
         <id property="id" column="id"/>
         <result property="name" column="name"/>
+        <result property="phone" column="phone"/>
         <result property="sex" column="sex"/>
         <result property="salary" column="salary"/>
         <association property="dept" javaType="com.wei.entity.Dept">
@@ -30,4 +31,12 @@
     <insert id="saveEmp">
         insert into e_emp (name,phone,sex,salary,dept_id) values (#{emp.name},#{emp.phone},#{emp.sex},#{emp.salary},#{emp.dept_id})
     </insert>
+
+    <update id="updateEmp">
+        update e_emp set name=#{emp.name},phone=#{emp.phone},sex=#{emp.sex},dept_id=#{emp.dept_id} where id=#{emp.id}
+    </update>
+
+    <select id="listEmpById" resultType="com.wei.entity.Emp">
+        SELECT  id,name,phone,sex,salary,dept_id from e_emp where id=#{id}
+    </select>
 </mapper>

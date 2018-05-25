@@ -19,4 +19,10 @@ public interface EmpService {
      * 添加员工 存入数据库
      */
     int saveEmp(Emp emp);
+    /**
+     * 修改员工
+     */
+    int updateEmp(Emp emp);
+
+    Emp listEmpById(int id);
 }

@@ -38,7 +38,7 @@
                     <td>${emp.salary}</td>
                     <td>${emp.dept.dname}</td>
                     <td>
-                        <button type="button" class="btn btn-info">修改</button>
+                        <button type="button" class="btn btn-info update_id" value="${emp.id}">修改</button>
                         <button type="button" class="btn btn-danger delete_id" value="${emp.id}">删除</button>
                     </td>
                 </tr>
@@ -159,6 +159,13 @@
     //    添加员工
         $("#addEmp").click(function () {
             var path = "${pageContext.request.contextPath}/addEmp";
+            location.href=path;
+        });
+
+    //    修改
+        $(".update_id").click(function () {
+            var curId= $(this).val();
+            var path = "${pageContext.request.contextPath}/updateEmpView?id="+curId;
             location.href=path;
         });
     });

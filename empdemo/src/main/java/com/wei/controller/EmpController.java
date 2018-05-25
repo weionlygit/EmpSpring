@@ -61,7 +61,7 @@ public class EmpController {
      */
     @Autowired
     private DeptService deptService;
-
+//员工部门
     @RequestMapping(value = {"/addEmp"})
     public String addEmp(ModelMap param){
         List<Dept> listDept= deptService.listDept();
@@ -73,10 +73,34 @@ public class EmpController {
      * 添加的员工传到后台
      */
     @RequestMapping(value = {"/saveEmp"})
+//    应该是name phone sex 等
     public String saveEmp(Emp emp){
 
         empService.saveEmp(emp);
 //        不能转发-500 ，转发和重定向 区别
+        return "redirect:/emplist";
+    }
+
+    /**
+     * 修改员工,显示原来数据
+     */
+    @RequestMapping(value = {"/updateEmpView"})
+    public String updateEmpView(ModelMap param, int id){
+//        前台的emp是从这里那到的
+        Emp emp = empService.listEmpById(id);
+        List<Dept> listDept= deptService.listDept();
+        param.put("emp",emp);
+        param.put("dept",listDept);
+        return "updateEmp";
+    }
+//    拿到修改的数据，修改数据库
+    @RequestMapping(value = {"/updateEmp"})
+    public String updateEmp(Emp emp){
+//        这里的emp是从前台拿到的
+        System.out.println(emp.getName());
+        System.out.println(emp.getPhone());
+        System.out.println(emp.getId());
+        empService.updateEmp(emp);
         return "redirect:/emplist";
     }
 }
