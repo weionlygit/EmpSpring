@@ -8,7 +8,9 @@ import java.util.List;
 public interface DeptMapper {
     List<Dept> listDept();
     int deleteDeptById(int[] id);
+
     int saveDept(@Param("dept") Dept dept);
+    Dept listDeptByDname(String dname);
 
     Dept listDeptById(int id);
 

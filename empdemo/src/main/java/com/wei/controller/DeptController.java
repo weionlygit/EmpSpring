@@ -8,6 +8,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
+
 @Controller
 public class DeptController {
 
@@ -50,9 +54,25 @@ public class DeptController {
     }
     @RequestMapping(value = {"/updateDept"})
     public String updateDept(Dept dept){
-
         deptService.updateDept(dept);
         return "redirect:deptlist";
+    }
 
+    /**
+     * 增加部门进行ajax验证不能重复
+     * @param dname
+     * @param res
+     * @throws IOException
+     */
+    @RequestMapping(value = {"/checkDname"})
+    public void checkDname(String dname,HttpServletResponse res) throws IOException {
+        Dept dept = deptService.listDeptByDname(dname);
+        System.out.println(dname);
+        PrintWriter out= res.getWriter();
+        if(dept==null){
+            out.print("true");
+        }else{
+            out.print("false");
+        }
     }
 }

@@ -47,18 +47,34 @@
 <script>
     $(function () {
         var name;
-
+        var dname=$("#dname").val();
         $("#dname").blur(function () {
             var regex=/^[1-9\u4e00-\u9fa5]{2,8}$/;
             var cname = regex.test($(this).val());
             if(cname==true){
-                $("#checkName").attr("class","form-group has-success");
-                name=true;
+                $.ajax({
+                    //可以加 都行 ？dname="+dname
+                    url:"${pageContext.request.contextPath}/checkDname",
+                    type:"post",
+                    data:"dname"+dname,
+                    success:function(data){
+                        if(data.trim()=="ture"){
+                            $("#checkName").attr("class","form-group has-success");
+                            name=true;
+                        }else{
+                            $("#checkName").attr("class","form-group has-error");
+                            alert("已存在");
+                            name=false;
+                        }
+                    }
+                });
             }else{
                 $("#checkName").attr("class","form-group has-error");
-                name=false;
+                name=false
             }
         });
+
+
 
         <%--提交表单--%>
         $("#confirm").click(function () {

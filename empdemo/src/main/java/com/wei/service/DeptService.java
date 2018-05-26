@@ -18,5 +18,6 @@ public interface DeptService {
     int updateDept(Dept dept);
 //    int deptCount();
 
+    Dept listDeptByDname(String dname);
 
 }

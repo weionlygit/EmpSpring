@@ -39,6 +39,11 @@ public class DeptServiceImpl implements DeptService {
         return deptMapper.updateDept(dept);
     }
 
+    @Override
+    public Dept listDeptByDname(String dname) {
+        return deptMapper.listDeptByDname(dname);
+    }
+
 //    @Override
 //    public int deptCount() {
 //        return deptMapper.deptCount();
