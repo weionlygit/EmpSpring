@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>emplist</title>
+    <title>deptlist</title>
     <link rel="stylesheet" href="r/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="r/css/style.css">
     <%--${pageContext.request.contextPath}--%>
@@ -18,28 +18,22 @@
             <tr>
                 <th><input type="checkbox" id="chooseAll"></th>
                 <th>#</th>
-                <th>姓名</th>
-                <th>手机</th>
-                <th>性别</th>
-                <th>工资</th>
                 <th>部门</th>
+                <th>地址</th>
                 <th>操作</th>
             </tr>
             </thead>
             <tbody>
 
-            <c:forEach items="${pageInfo.list}" var="emp" varStatus="index">
+            <c:forEach items="${pageInfo.list}" var="dept" varStatus="index">
                 <tr>
-                    <td><input type="checkbox" class="item" value="${emp.id}"></td>
+                    <td><input type="checkbox" class="item" value="${dept.id}"></td>
                     <td>${index.index+1}</td>
-                    <td>${emp.name}</td>
-                    <td>${emp.phone}</td>
-                    <td>${emp.sex}</td>
-                    <td>${emp.salary}</td>
-                    <td>${emp.dept.dname}</td>
+                    <td>${dept.dname}</td>
+                    <td>${dept.location}</td>
                     <td>
-                        <button type="button" class="btn btn-info update_id" value="${emp.id}">修改</button>
-                        <button type="button" class="btn btn-danger delete_id" value="${emp.id}">删除</button>
+                        <button type="button" class="btn btn-info update_id" value="${dept.id}">修改</button>
+                        <button type="button" class="btn btn-danger delete_id" value="${dept.id}">删除</button>
                     </td>
                 </tr>
             </c:forEach>
@@ -49,7 +43,7 @@
     </div>
     <div class="row">
         <div class="col-sm-9">
-            <button type="button" class="btn btn-primary" id="addEmp">增加</button>
+            <button type="button" class="btn btn-primary" id="addDept">增加</button>
             <button type="button" class="btn btn-danger" id="deleteAll">删除</button>
         </div>
         <div class="col-sm-3">
@@ -65,35 +59,19 @@
                     </c:if>
                     <c:if test="${!(pageInfo.isFirstPage)}">
                         <li>
-                            <a href="${pageContext.request.contextPath}/emplist?pageNum=${pageInfo.prePage}" aria-label="Previous">
+                            <a href="${pageContext.request.contextPath}/deptlist?pageNum=${pageInfo.prePage}" aria-label="Previous">
                                 <span aria-hidden="true">&laquo;</span>
                             </a>
                         </li>
                     </c:if>
 
                     <%--当前页不能超过分页总数--%>
-                    <c:if test="${pageInfo.pages-pageInfo.pageNum>4}" >
-                        <%--因为index记录的不是当前的pageNum--%>
-                        <c:forEach begin="${pageInfo.pageNum}" end="${pageInfo.pageNum+4}" var="num" varStatus="index">
-                            <c:if test="${index.index==pageInfo.pageNum}">
-                                <li class="active"><a href="${pageContext.request.contextPath}/emplist?pageNum=${index.index}">${num}</a></li>
-                            </c:if>
-                            <c:if test="${!(index.index==pageInfo.pageNum)}">
-                                <li ><a href="${pageContext.request.contextPath}/emplist?pageNum=${index.index}">${num}</a></li>
-                            </c:if>
-                        </c:forEach>
-                    </c:if>
-                    <c:if test="${!(pageInfo.pages-pageInfo.pageNum>4)}" >
-                        <%--因为index记录的不是当前的pageNum--%>
-                        <c:forEach begin="${pageInfo.pages-4}" end="${pageInfo.pages}" var="num" varStatus="index">
-                            <c:if test="${index.index==pageInfo.pageNum}">
-                                <li class="active"><a href="${pageContext.request.contextPath}/emplist?pageNum=${index.index}">${num}</a></li>
-                            </c:if>
-                            <c:if test="${!(index.index==pageInfo.pageNum)}">
-                                <li ><a href="${pageContext.request.contextPath}/emplist?pageNum=${index.index}">${num}</a></li>
-                            </c:if>
-                        </c:forEach>
-                    </c:if>
+                    <c:forEach items="${pageInfo.navigatepageNums}"  var="num">
+                        <li <c:if test="${pageInfo.pageNum==num}">class="active" </c:if> >
+
+                            <a href="${pageContext.request.contextPath}/deptlist?pageNum=${num}">${num}</a>
+                        </li>
+                    </c:forEach>
 
 
                     <c:if test="${pageInfo.isLastPage}">
@@ -105,7 +83,7 @@
                     </c:if>
                     <c:if test="${!(pageInfo.isLastPage)}">
                         <li>
-                            <a href="${pageContext.request.contextPath}/emplist?pageNum=${pageInfo.nextPage}" aria-label="Next">
+                            <a href="${pageContext.request.contextPath}/deptlist?pageNum=${pageInfo.nextPage}" aria-label="Next">
                                 <span aria-hidden="true">&raquo;</span>
                             </a>
                         </li>
@@ -115,7 +93,6 @@
         </div>
     </div>
     <div class="row foot"></div>
-    <a href="deptlist">部门</a>
 </div>
 
 <script type="text/javascript" src="r/js/jquery-3.3.1.min.js"></script>
@@ -136,7 +113,7 @@
             var ids=[];
 
             if($(":checked").length==0){
-                alert("请选择要删除的员工");
+                alert("请选择要删除的部门");
             }else{
 
                 $(".item").each(function () {
@@ -145,25 +122,25 @@
                         var id=item.val();
                         ids[ids.length]=id;
                     }
-                    var path = "${pageContext.request.contextPath}/deleteEmpById?id="+ids;
+                    var path = "${pageContext.request.contextPath}/deleteDeptById?id="+ids;
                     location.href=path;
                     // $(".delete_id").val()
                 });
             }
         });
-    //    单个删除
+        //    单个删除
         $(".delete_id").click(function(){
             var curId =$(this);
-            var path = "${pageContext.request.contextPath}/deleteEmpById?id="+curId.val();
+            var path = "${pageContext.request.contextPath}/deleteDeptById?id="+curId.val();
             location.href=path;
         });
-    //    添加员工
-        $("#addEmp").click(function () {
-            var path = "${pageContext.request.contextPath}/addEmp";
+        //    添加员工
+        $("#addDept").click(function () {
+            var path = "${pageContext.request.contextPath}/addDept";
             location.href=path;
         });
 
-    //    修改
+        //    修改
         $(".update_id").click(function () {
             var curId= $(this).val();
             var path = "${pageContext.request.contextPath}/updateEmpView?id="+curId;

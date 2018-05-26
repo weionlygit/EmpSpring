@@ -103,4 +103,17 @@ public class EmpController {
         empService.updateEmp(emp);
         return "redirect:/emplist";
     }
+    /**
+     * 部门
+     */
+    @RequestMapping(value = {"/deptlist"})
+    public String deptlist(ModelMap param, @RequestParam(name = "pageNum" ,defaultValue = "1") int pageNum){
+        PageHelper.startPage(pageNum,5);
+        List<Dept> deptlist= deptService.listDept();
+
+        PageInfo<Dept> pageInfo =new PageInfo<>(deptlist,4);
+        param.put("pageInfo",pageInfo);
+
+        return "deptlist";
+    }
 }

@@ -7,4 +7,16 @@
     <select id="listDept" resultType="com.wei.entity.Dept">
         SELECT * from e_dept
     </select>
+
+    <delete id="deleteDeptById">
+        delete from e_dept where id=#{id};
+    </delete>
+
+    <insert id="saveDept">
+        insert into e_dept values (#{dept.id},#{dept.dname},#{dept.location})
+    </insert>
+    <!--显示一个部门数量 作为id传过去-->
+    <!--<select id="deptCount" parameterType="int">-->
+        <!--select count(*) from e_dept-->
+    <!--</select>-->
 </mapper>

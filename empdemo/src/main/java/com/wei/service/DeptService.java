@@ -9,4 +9,10 @@ public interface DeptService {
      * 为添加员工页携带部门信息
      */
     List<Dept> listDept();
+
+    int deleteDeptbyId(int id);
+    int saveDept(Dept dept);
+//    int deptCount();
+
+
 }
