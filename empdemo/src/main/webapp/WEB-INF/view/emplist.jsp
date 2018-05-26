@@ -11,7 +11,10 @@
 </head>
 <body>
 <div class="container">
-    <div class="row head"></div>
+    <div class="row head">
+        <a href="deptlist"
+           style="font-family:verdana;font-size:150%;color:green;display: inline-block;margin:30px;">部门信息</a>
+    </div>
     <div class="row">
         <table class="table table-striped table-hover">
             <thead>
@@ -115,7 +118,6 @@
         </div>
     </div>
     <div class="row foot"></div>
-    <a href="deptlist">部门</a>
 </div>
 
 <script type="text/javascript" src="r/js/jquery-3.3.1.min.js"></script>

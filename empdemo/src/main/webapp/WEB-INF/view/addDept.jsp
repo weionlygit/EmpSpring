@@ -51,6 +51,7 @@
         $("#dname").blur(function () {
             var regex=/^[1-9\u4e00-\u9fa5]{2,8}$/;
             var cname = regex.test($(this).val());
+            alert(dname);
             if(cname==true){
                 $.ajax({
                     //可以加 都行 ？dname="+dname
@@ -58,7 +59,7 @@
                     type:"post",
                     data:"dname"+dname,
                     success:function(data){
-                        if(data.trim()=="ture"){
+                        if(data.trim()=="true"){
                             $("#checkName").attr("class","form-group has-success");
                             name=true;
                         }else{

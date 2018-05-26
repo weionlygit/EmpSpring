@@ -67,7 +67,7 @@ public class DeptController {
     @RequestMapping(value = {"/checkDname"})
     public void checkDname(String dname,HttpServletResponse res) throws IOException {
         Dept dept = deptService.listDeptByDname(dname);
-        System.out.println(dname);
+        System.out.println(dname);//为啥不打印
         PrintWriter out= res.getWriter();
         if(dept==null){
             out.print("true");
