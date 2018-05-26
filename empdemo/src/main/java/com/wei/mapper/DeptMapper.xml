@@ -8,8 +8,11 @@
         SELECT * from e_dept
     </select>
 
-    <delete id="deleteDeptById">
-        delete from e_dept where id=#{id};
+    <delete id="deleteDeptById" parameterType="int">
+        delete from e_dept where id in
+        <foreach item="item" collection="array" open="(" separator="," close=")">
+           #{item}
+        </foreach>
     </delete>
 
     <insert id="saveDept">
@@ -19,4 +22,13 @@
     <!--<select id="deptCount" parameterType="int">-->
         <!--select count(*) from e_dept-->
     <!--</select>-->
+
+    <!--修改部门 带数据-->
+    <select id="listDeptById" resultType="com.wei.entity.Dept">
+        SELECT * from e_dept where id=#{id}
+    </select>
+
+    <update id="updateDept">
+        update e_dept set dname=#{dept.dname},location=#{dept.location} where id=#{dept.id}
+    </update>
 </mapper>

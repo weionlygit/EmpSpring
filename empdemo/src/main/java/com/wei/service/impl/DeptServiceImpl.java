@@ -20,13 +20,23 @@ public class DeptServiceImpl implements DeptService {
     }
 
     @Override
-    public int deleteDeptbyId(int id) {
+    public int deleteDeptbyId(int[] id) {
         return deptMapper.deleteDeptById(id);
     }
 
     @Override
     public int saveDept(Dept dept) {
         return deptMapper.saveDept(dept);
+    }
+
+    @Override
+    public Dept listDeptById(int id) {
+        return deptMapper.listDeptById(id);
+    }
+
+    @Override
+    public int updateDept(Dept dept) {
+        return deptMapper.updateDept(dept);
     }
 
 //    @Override

@@ -111,11 +111,9 @@
         //全部删除
         $("#deleteAll").click(function(){
             var ids=[];
-
             if($(":checked").length==0){
                 alert("请选择要删除的部门");
             }else{
-
                 $(".item").each(function () {
                     var item =$(this);
                     if(item.prop("checked")){
@@ -134,7 +132,7 @@
             var path = "${pageContext.request.contextPath}/deleteDeptById?id="+curId.val();
             location.href=path;
         });
-        //    添加员工
+        //    添加部门
         $("#addDept").click(function () {
             var path = "${pageContext.request.contextPath}/addDept";
             location.href=path;
@@ -143,7 +141,7 @@
         //    修改
         $(".update_id").click(function () {
             var curId= $(this).val();
-            var path = "${pageContext.request.contextPath}/updateEmpView?id="+curId;
+            var path = "${pageContext.request.contextPath}/updateDeptView?id="+curId;
             location.href=path;
         });
     });

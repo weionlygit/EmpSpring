@@ -7,8 +7,12 @@ import java.util.List;
 
 public interface DeptMapper {
     List<Dept> listDept();
-    int deleteDeptById(int id);
+    int deleteDeptById(int[] id);
     int saveDept(@Param("dept") Dept dept);
+
+    Dept listDeptById(int id);
+
+    int updateDept(@Param("dept")Dept dept);
 
 //    int deptCount();
 

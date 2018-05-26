@@ -10,8 +10,12 @@ public interface DeptService {
      */
     List<Dept> listDept();
 
-    int deleteDeptbyId(int id);
+    int deleteDeptbyId(int[] id);
     int saveDept(Dept dept);
+
+    Dept listDeptById(int id);
+
+    int updateDept(Dept dept);
 //    int deptCount();
 
 

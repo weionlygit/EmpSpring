@@ -14,11 +14,13 @@ public class DeptController {
     @Autowired
     public DeptService deptService;
 
+    /**
+     * 删除部门
+     */
     @RequestMapping(value = {"/deleteDeptById"})
-    public String deleteDeptById(int id){
-
+    public String deleteDeptById(int[] id){
         deptService.deleteDeptbyId(id);
-        return "deptlist";
+        return "redirect:deptlist";
     }
 
     /**
@@ -36,8 +38,21 @@ public class DeptController {
         deptService.saveDept(dept);
         return "redirect:deptlist";
     }
-    /**
-     * 删除部门
-     */
+/**
+ * 修改部门
+ */
+    @RequestMapping(value = {"/updateDeptView"})
+    public String updateDeptView(ModelMap param,int id){
+        Dept dept=deptService.listDeptById(id);
+        param.put("dept",dept);
+//        转发是转到页面，但重定向会到controller
+        return "updateDept";
+    }
+    @RequestMapping(value = {"/updateDept"})
+    public String updateDept(Dept dept){
 
+        deptService.updateDept(dept);
+        return "redirect:deptlist";
+
+    }
 }
