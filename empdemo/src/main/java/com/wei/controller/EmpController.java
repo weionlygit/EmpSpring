@@ -11,7 +11,9 @@ import com.wei.service.impl.EmpServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
@@ -72,7 +74,9 @@ public class EmpController {
     /**
      * 添加的员工传到后台
      */
-    @RequestMapping(value = {"/saveEmp"})
+//    当地址栏直接访问这个地址后 没有添加数据 但是也执行 导致数据库产生垃圾数据 post只当有数据才会提交
+//    @RequestMapping(value = {"/saveEmp"},method = {RequestMethod.POST})或者用下面方法  这样就会405 不会向数据库添垃圾数据
+    @PostMapping({"/saveEmp"})
 //    应该是name phone sex 等
     public String saveEmp(Emp emp){
 

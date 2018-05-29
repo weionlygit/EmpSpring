@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletResponse;
@@ -37,7 +38,8 @@ public class DeptController {
 
         return "addDept";
     }
-    @RequestMapping(value = {"/saveDept"})
+//    @RequestMapping(value = {"/saveDept"})
+    @PostMapping(value = {"/saveDept"})
     public String saveDept(Dept dept){
         deptService.saveDept(dept);
         return "redirect:deptlist";
