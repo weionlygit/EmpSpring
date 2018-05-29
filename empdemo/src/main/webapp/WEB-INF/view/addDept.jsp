@@ -54,9 +54,10 @@
             if(cname==true){
                 $.ajax({
                     //可以加 都行 ？dname="+dname
-                    url:"${pageContext.request.contextPath}/checkDname",
+                    url:"${pageContext.request.contextPath}/checkDname?dname="+dname,
                     type:"post",
-                    data:"dname"+dname,
+                    //这样带不过去数据
+                    // data:"dname"+dname,
                     success:function(data){
                         if(data.trim()=="true"){
                             $("#checkName").attr("class","form-group has-success");
