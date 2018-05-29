@@ -4,7 +4,19 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <!--映射-->
 <mapper namespace="com.wei.mapper.UserMapper">
-    <select id="listUser" resultType="com.wei.entity.User">
+    <select id="listUserByUsername" resultType="com.wei.entity.User">
         SELECT * from user where username=#{username}
+    </select>
+    <!--登录时验证cookie中是否有用户-->
+    <select id="listUser" resultType="com.wei.entity.User">
+        SELECT * from user
+    </select>
+    <!--注册用户存入数据库-->
+    <insert id="saveUser">
+        insert into user(username,password,path) values(#{user.username},#{user.password},#{user.path})
+    </insert>
+    <!--验证注册用户用户名不可重复-->
+    <select id="checkUserName" resultType="com.wei.entity.User">
+        select username,password from user where username=#{username}
     </select>
 </mapper>

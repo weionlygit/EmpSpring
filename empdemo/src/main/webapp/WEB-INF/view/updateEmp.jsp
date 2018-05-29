@@ -76,9 +76,9 @@
 <script type="text/javascript" src="r/bootstrap/js/bootstrap.min.js"></script>
 <script>
     $(function () {
-        var name;
-        var phone;
-        var salary;
+        var name=true;
+        var phone=true;
+        var salary=true;
 
         $("#name").blur(function () {
             var regex=/^[\u4e00-\u9fa5]{2,4}$/;

@@ -18,6 +18,28 @@
     <!--释放静态资源第二种方法：
         开启mvc的支持，会主动扫类
      -->
-
     <mvc:resources mapping="/r/**" location="/r/"></mvc:resources>
+
+    <!--配置上传文件的支持-->
+    <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+        <property name="defaultEncoding" value="utf-8"/>
+        <!--最大支持上传大小-->
+        <property name="maxUploadSize" value="5400000"/>
+        <!--最大零时内存 如果超了 就放在本地  否则在内存存放-->
+        <property name="maxInMemorySize" value="10240"/>
+
+    </bean>
+
+    <!--配置拦截器-->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!--拦截对象-->
+            <mvc:mapping path="/dpet/**"/>
+            <mvc:mapping path="/emp/**"/>
+            <!--不拦截的-->
+            <mvc:exclude-mapping path="/user/**"/>
+            <!--找到拦截器这个类-->
+            <bean class="com.wei.interceptor.LoginInterceptor"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
 </beans>
