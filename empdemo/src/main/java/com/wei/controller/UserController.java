@@ -40,8 +40,11 @@ public class UserController {
      * @throws IOException
      */
     @RequestMapping(value = {"/login"})
-    public void login(String username, HttpServletResponse res, HttpServletRequest req) throws IOException {
+    public void login(String username, String password, HttpServletResponse res, HttpServletRequest req) throws IOException {
+        System.out.println(username);
+        System.out.println(password);
         User user= userService.listUserByUsername(username);
+
         PrintWriter out= res.getWriter();
 //登录后放在session中 拦截器去判断
         HttpSession httpSession =req.getSession();
@@ -53,10 +56,10 @@ public class UserController {
         cookie.setMaxAge(30);//30分钟
         res.addCookie(cookie);
 
-        if(user==null){
-            out.print("false");
-        }else{
+        if(!(user==null)&&user.getPassword().equals(password)){
             out.print("true");
+        }else{
+            out.print("false");
         }
     }
     /**
